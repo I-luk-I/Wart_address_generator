@@ -36,8 +36,8 @@ fn main() {
                     if found.load(Ordering::Relaxed){
                         break
                     }
-                    let vrem_adres = Wart_key::new();
-                    match &vrem_adres.get_address()[vrem_adres.get_address().len() - arc_count.len()..] == *arc_count {
+                    let temporary_address = Wart_key::new();
+                    match &temporary_address.get_address()[temporary_address.get_address().len() - arc_count.len()..] == *arc_count {
                         false => {
                             let mut lock_count = count_adr.lock().unwrap();
                             *lock_count+=1;
@@ -47,7 +47,7 @@ fn main() {
                             }
                         }
                         true => {
-                            println!("Wart address - {}\nWart public key - {}\nWart private key - {}", vrem_adres.get_address(), vrem_adres.get_public_key(), vrem_adres.get_priv_key());
+                            println!("Wart address - {}\nWart public key - {}\nWart private key - {}", temporary_address.get_address(), temporary_address.get_public_key(), temporary_address.get_priv_key());
                             found.store(true,Ordering::Relaxed);
                             break
                         }
