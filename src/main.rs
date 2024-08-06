@@ -5,7 +5,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::thread::JoinHandle;
 use Parse_new::Wart_key;
 mod lib;
-use::Parse_new::Wallet;
+use Parse_new::Wallet;
 use std::thread;
 use num_cpus;
 
