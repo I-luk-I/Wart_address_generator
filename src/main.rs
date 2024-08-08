@@ -31,7 +31,8 @@ fn main() {
                 let count_adr = Arc::clone(&address_count);
                 let arc_count = Arc::clone(&target);
                 let found = Arc::clone(&found);
-                let thread = thread::spawn( move ||
+                let thread = thread::spawn( move ||{
+                let mut count = 0u64;
                 loop  {
                     if found.load(Ordering::Relaxed){
                         break
@@ -39,11 +40,16 @@ fn main() {
                     let temporary_address = Wart_key::new();
                     match &temporary_address.get_address()[temporary_address.get_address().len() - arc_count.len()..] == *arc_count {
                         false => {
-                            let mut lock_count = count_adr.lock().unwrap();
-                            *lock_count+=1;
-                            if *lock_count%100000 == 0{
-                                println!("Generated addresses:{}",*lock_count);
-
+                            if count >= 10000 {
+                                let mut lock_count = count_adr.lock().unwrap();
+                                *lock_count += count;
+                                if *lock_count % 100000 == 0 {
+                                    println!("Generated addresses:{}", *lock_count);
+                                    count = 0;
+                                }
+                            }
+                            else {
+                                count+=1;
                             }
                         }
                         true => {
@@ -55,7 +61,8 @@ fn main() {
                     }
 
 
-                });
+                }});
+
                 vec_threads.push(thread);
             }
             for i in vec_threads.into_iter(){
