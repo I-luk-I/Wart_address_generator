@@ -40,13 +40,12 @@ fn main() {
                     let temporary_address = Wart_key::new();
                     match &temporary_address.get_address()[temporary_address.get_address().len() - arc_count.len()..] == *arc_count {
                         false => {
-                            if count >= 10000 {
+                            if count >= 50000 {
                                 let mut lock_count = count_adr.lock().unwrap();
                                 *lock_count += count;
-                                if *lock_count % 200000 == 0 {
-                                    println!("Generated addresses:{}", *lock_count);
-                                    count = 0;
-                                }
+                                count=0;
+                                println!("Generated addresses:{}", *lock_count);
+
                             }
                             else {
                                 count+=1;
