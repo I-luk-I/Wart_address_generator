@@ -43,7 +43,7 @@ fn main() {
                             if count >= 10000 {
                                 let mut lock_count = count_adr.lock().unwrap();
                                 *lock_count += count;
-                                if *lock_count % 100000 == 0 {
+                                if *lock_count % 200000 == 0 {
                                     println!("Generated addresses:{}", *lock_count);
                                     count = 0;
                                 }
