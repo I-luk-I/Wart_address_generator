@@ -56,13 +56,13 @@ fn main() {
             let found_clone = Arc::clone(&found);
             let print_count = std::thread::spawn(move ||{
                 loop {
-                    if !found_clone.load(Ordering::Relaxed){
-                    println!("{}",print_glob.load(Ordering::SeqCst));
-                    thread::sleep(Duration::from_secs(15))
-                    }
-                    else {
+                    if found_clone.load(Ordering::Relaxed){
                         break
                     }
+                    println!("Addresses generated: {}",print_glob.load(Ordering::SeqCst));
+                    thread::sleep(Duration::from_secs(15))
+
+
                 }
 
             });
