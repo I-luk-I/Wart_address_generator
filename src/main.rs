@@ -59,7 +59,7 @@ fn main() {
                     if found_clone.load(Ordering::Relaxed){
                         break
                     }
-                    println!("Addresses generated: {}",print_glob.load(Ordering::SeqCst));
+                    println!("Addresses generated: {}",print_glob.load(Ordering::Relaxed));
                     thread::sleep(Duration::from_secs(15))
 
 
