@@ -16,7 +16,7 @@ use clap::Parser;
 #[derive(Parser)]
 struct Threads{
     #[arg(short,long)]
-    num_threads:u8
+    threads:u8
 }
 
 fn main() {
@@ -41,7 +41,7 @@ fn main() {
             println!("Enter address generation criteria (end of address)");
             stdin().read_line(&mut target).unwrap();
             let target = Arc::new(target.trim().to_string());
-            let threads = if let Ok(i) = threads {i.num_threads} else { num_cpus::get() as u8 + 2 };
+            let threads = if let Ok(i) = threads {i.threads} else { num_cpus::get() as u8 + 2 };
             for i in 0..threads{
                 let found_clone = Arc::clone(&found);
                 let global_count_clone = Arc::clone(&global_count);
