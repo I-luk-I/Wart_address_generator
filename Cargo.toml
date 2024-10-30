@@ -13,3 +13,4 @@ elliptic-curve = "=0.13.8"
 secp256k1 = { version = "0.29", features = ["rand"] }
 ripemd = "0.1.3"
 num_cpus = "1.13.1"
+clap = { version = "4.5.20", features = ["derive"] }
