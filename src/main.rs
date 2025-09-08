@@ -20,6 +20,7 @@ struct Threads{
 }
 
 fn main() {
+
     let threads = Threads::try_parse();
     let mut choice = String::new();
     println!("Choose one of the options:\n1-Create a random address\n2-Create your desired address.");
