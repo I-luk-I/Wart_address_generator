@@ -10,9 +10,9 @@ pub trait Wallet{
     fn get_public_key(&self)->&str;
 }
 pub struct Wart_key{
-    priv_key:&'static str,
-    public_key:&'static str,
-    address:&'static str
+    priv_key:String,
+    public_key:String,
+    address:String
 }
 impl Wallet for Wart_key{
     fn new()->Self{
@@ -33,19 +33,19 @@ impl Wallet for Wart_key{
         let addr = [&addr_raw[..], checksum].concat();
         //println!("address: {}", hex::encode(addr));
         Wart_key{
-            priv_key:Box::leak((hex::encode(&sk_bytes)).into_boxed_str()),
-            public_key:Box::leak(hex::encode(pub_key.serialize()).into_boxed_str()),
-            address:Box::leak(hex::encode(addr).into_boxed_str())
+            priv_key:hex::encode(&sk_bytes),
+            public_key:hex::encode(pub_key.serialize()),
+            address:hex::encode(addr)
         }
     }
     fn get_address(&self) -> &str {
-        self.address
+        &self.address
     }
     fn get_priv_key(&self) -> &str {
-        self.priv_key
+        &self.priv_key
     }
     fn get_public_key(&self) -> &str {
-        self.public_key
+        &self.public_key
     }
 }
 
